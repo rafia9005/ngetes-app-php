@@ -1,10 +1,13 @@
-```php
+``php
 <?php
 // Include file konfigurasi
 include '../../config/config.php';
 
 // Memeriksa apakah form telah di-submit
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Menghubungkan ke database
+  include '../../config/config.php';
+
   // Mendapatkan nilai dari form
   $akte_kelahiran = $_FILES["akte_kelahiran"]["name"];
   $surat_baptis = $_FILES["surat_baptis"]["name"];
@@ -21,9 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   move_uploaded_file($_FILES["surat_keterangan_sehat"]["tmp_name"], $targetDir . basename($surat_keterangan_sehat));
   move_uploaded_file($_FILES["ktp"]["tmp_name"], $targetDir . basename($ktp));
 
-  // Menghubungkan ke database
-  include '../../config/config.php';
-
   // Menyimpan data ke database
   $sql = "INSERT INTO keterangan_nikah (akte_kelahiran, surat_baptis, surat_pemberkatan_perkawinan, surat_keterangan_sehat, ktp, nomer)
           VALUES ('$akte_kelahiran', '$surat_baptis', '$surat_pemberkatan_perkawinan', '$surat_keterangan_sehat', '$ktp', '$nomer')";
@@ -37,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   mysqli_close($conn);
 }
 ?>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
