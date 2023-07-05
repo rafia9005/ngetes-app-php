@@ -1,4 +1,4 @@
-``php
+```php
 <?php
 // Include file konfigurasi
 include '../../config/config.php';
